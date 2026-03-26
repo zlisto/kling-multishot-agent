@@ -8,7 +8,7 @@ This repo helps you **plan multi-shot video scenes** with a local **Jarvis** ass
 
 You use **Kling’s website** to upload Elements, reference images, and render video. Jarvis only helps you write prompts.
 
-1. Open **[Kling](https://app.klingai.com/global/)** in a browser.
+1. Open **<a href="https://app.klingai.com/global/" target="_blank" rel="noopener noreferrer">Kling</a>** in a browser.
 2. Use **Sign up** or **Log in** (options vary by region; often email or a third-party sign-in).
 3. Complete any onboarding steps the site shows.
 4. Add **credits / Spirit** or a **membership** if you plan to generate video (see links below). Pricing changes; always confirm in the app.
@@ -17,12 +17,12 @@ You use **Kling’s website** to upload Elements, reference images, and render v
 
 | What | Link |
 |------|------|
-| **Main app** | [https://app.klingai.com/global/](https://app.klingai.com/global/) |
-| **Spirit / credit pricing** | [https://app.klingai.com/global/membership/spirit-unit](https://app.klingai.com/global/membership/spirit-unit) |
-| **Membership plans** | [https://app.klingai.com/global/membership/membership-plan](https://app.klingai.com/global/membership/membership-plan) |
-| **Element Library 3 user guide** | [https://app.klingai.com/global/quickstart/klingai-element-library-3-user-guide](https://app.klingai.com/global/quickstart/klingai-element-library-3-user-guide) |
-| **Kling Video 3 Omni (model guide)** | [https://app.klingai.com/global/quickstart/klingai-video-3-omni-model-user-guide](https://app.klingai.com/global/quickstart/klingai-video-3-omni-model-user-guide) |
-| **Omni Video API reference** (optional; not used by this repo’s `main.py`) | [https://app.klingai.com/global/dev/document-api/apiReference/model/OmniVideo](https://app.klingai.com/global/dev/document-api/apiReference/model/OmniVideo) |
+| **Main app** | <a href="https://app.klingai.com/global/" target="_blank" rel="noopener noreferrer">https://app.klingai.com/global/</a> |
+| **Spirit / credit pricing** | <a href="https://app.klingai.com/global/membership/spirit-unit" target="_blank" rel="noopener noreferrer">https://app.klingai.com/global/membership/spirit-unit</a> |
+| **Membership plans** | <a href="https://app.klingai.com/global/membership/membership-plan" target="_blank" rel="noopener noreferrer">https://app.klingai.com/global/membership/membership-plan</a> |
+| **Element Library 3 user guide** | <a href="https://app.klingai.com/global/quickstart/klingai-element-library-3-user-guide" target="_blank" rel="noopener noreferrer">https://app.klingai.com/global/quickstart/klingai-element-library-3-user-guide</a> |
+| **Kling Video 3 Omni (model guide)** | <a href="https://app.klingai.com/global/quickstart/klingai-video-3-omni-model-user-guide" target="_blank" rel="noopener noreferrer">https://app.klingai.com/global/quickstart/klingai-video-3-omni-model-user-guide</a> |
+| **Omni Video API reference** (optional; not used by this repo’s `main.py`) | <a href="https://app.klingai.com/global/dev/document-api/apiReference/model/OmniVideo" target="_blank" rel="noopener noreferrer">https://app.klingai.com/global/dev/document-api/apiReference/model/OmniVideo</a> |
 
 Informal cost notes (from local testing; **verify in-app**):
 
@@ -35,7 +35,7 @@ You need a **Google Gemini API key**:
 
 | Variable | Required? | Purpose |
 |----------|------------|---------|
-| **`GEMINI_API_KEY`** | **Yes** | Powers Jarvis (chat + `/render`). Create a key in [Google AI Studio](https://aistudio.google.com/apikey). |
+| **`GEMINI_API_KEY`** | **Yes** | Powers Jarvis (chat + `/render`). Create a key in <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a>. |
 
 Put it in `.env`:
 
