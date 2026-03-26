@@ -15,7 +15,6 @@ You use **Kling’s website** to upload Elements, reference images, and render v
 
 ### Kling URLs (quick reference)
 
-GitHub README pages ignore `target="_blank"` in user content. To keep this repo open while visiting links, use `Ctrl+Click` (Windows/Linux) or `Cmd+Click` (macOS), or middle-click.
 
 | What | Link |
 |------|------|
