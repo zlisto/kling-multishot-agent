@@ -308,7 +308,7 @@ If the user does not specify total length, default to {default_total_duration_se
 
 JSON requirements:
 - multi_shot=true, shot_type="customize"
-- multi_prompt: array of shots, each with index (0-based), duration (integer seconds), prompt (one string)
+- multi_prompt: array of shots, each with index (1-based), duration (integer seconds), prompt (one string)
 - top-level "duration" string must equal the sum of shot durations
 - Include "reference_images" array documenting each @image tag used: [{{"tag":"@image1","description":"..."}}] merged from session + any from chat lines like "@tag | desc"
 - Include model_name, mode, aspect_ratio, watermark, negative_prompt as before
@@ -333,7 +333,7 @@ Required JSON shape:
   "shot_type": "customize",
   "reference_images": [{{"tag": "@image1", "description": "string"}}],
   "multi_prompt": [
-    {{"index": 0, "duration": 0, "prompt": "string with @tags"}}
+    {{"index": 1, "duration": 0, "prompt": "string with @tags"}}
   ]
 }}
 """.strip()
@@ -375,6 +375,11 @@ Required JSON shape:
 
         multi_prompt = scene.get("multi_prompt")
         if isinstance(multi_prompt, list) and multi_prompt:
+            # Kling custom multi-shot expects shot indices starting from 1.
+            for i, shot in enumerate(multi_prompt, start=1):
+                if isinstance(shot, dict):
+                    shot["index"] = i
+
             total = 0
             for shot in multi_prompt:
                 if isinstance(shot, dict):
