@@ -4,21 +4,48 @@ This repo helps you **plan multi-shot video scenes** with a local **Jarvis** ass
 
 **This app does not call the Kling API.** Video generation stays in Kling’s UI.
 
-### What you need (API keys)
+### Kling account (browser)
+
+You use **Kling’s website** to upload Elements, reference images, and render video. Jarvis only helps you write prompts.
+
+1. Open **[Kling](https://app.klingai.com/global/)** in a browser.
+2. Use **Sign up** or **Log in** (options vary by region; often email or a third-party sign-in).
+3. Complete any onboarding steps the site shows.
+4. Add **credits / Spirit** or a **membership** if you plan to generate video (see links below). Pricing changes; always confirm in the app.
+
+### Kling URLs (quick reference)
+
+| What | Link |
+|------|------|
+| **Main app** | [https://app.klingai.com/global/](https://app.klingai.com/global/) |
+| **Spirit / credit pricing** | [https://app.klingai.com/global/membership/spirit-unit](https://app.klingai.com/global/membership/spirit-unit) |
+| **Membership plans** | [https://app.klingai.com/global/membership/membership-plan](https://app.klingai.com/global/membership/membership-plan) |
+| **Element Library 3 user guide** | [https://app.klingai.com/global/quickstart/klingai-element-library-3-user-guide](https://app.klingai.com/global/quickstart/klingai-element-library-3-user-guide) |
+| **Kling Video 3 Omni (model guide)** | [https://app.klingai.com/global/quickstart/klingai-video-3-omni-model-user-guide](https://app.klingai.com/global/quickstart/klingai-video-3-omni-model-user-guide) |
+| **Omni Video API reference** (optional; not used by this repo’s `main.py`) | [https://app.klingai.com/global/dev/document-api/apiReference/model/OmniVideo](https://app.klingai.com/global/dev/document-api/apiReference/model/OmniVideo) |
+
+Informal cost notes (from local testing; **verify in-app**):
+
+- Example pack: **330 credits ≈ $5.00**
+- Example run: **15s** Omni 3 multishot, **6 scenes** → **180 credits** (settings and pricing change over time)
+
+### API key (only one required)
+
+You need a **Google Gemini API key**:
 
 | Variable | Required? | Purpose |
 |----------|------------|---------|
-| **`GEMINI_API_KEY`** | **Yes** | Powers Jarvis (chat + `/render` JSON generation). Get a key from [Google AI Studio](https://aistudio.google.com/apikey). |
-| `KLING_ACCESS_KEY` / `KLING_SECRET_KEY` | **No** | Only if you use `kling.py` yourself for API experiments. **Not used** by `main.py`. |
-| `JARVIS_MODEL` | No | Defaults to `gemini-2.0-flash`. Override in `.env` if you want another Gemini model id. |
+| **`GEMINI_API_KEY`** | **Yes** | Powers Jarvis (chat + `/render`). Create a key in [Google AI Studio](https://aistudio.google.com/apikey). |
 
-Minimum `.env`:
+Put it in `.env`:
 
 ```env
 GEMINI_API_KEY=your_key_here
 ```
 
-Copy from `.env.example` and remove or ignore Kling lines if you only use the prompt workflow.
+Optional: set `JARVIS_MODEL` in `.env` if you want a different Gemini model id (default is `gemini-2.0-flash`). Nothing else is required for `python main.py`.
+
+The repo includes **`kling.py`** for optional direct Kling API experiments; **`main.py` does not use it** and you do not need any Kling API keys for the Jarvis workflow.
 
 ### Install
 
@@ -54,6 +81,25 @@ Everything below happens **in the terminal** (not in the editor).
 
 Ask Jarvis “what commands can I use?” if you forget; he’s instructed to list them.
 
+### Example session (elements → refs → chat → storyboard)
+
+```text
+Session folder: projects/20260326_143000/
+
+Element: lisa | Yale SOM professor, red blazer, guest lecture
+Element: tauhid | colleague, orange shirt, supportive
+Element:
+
+Ref image: @image1 | empty Yale SOM classroom, wide establishing
+Ref image:
+
+You: Two-shot romantic comedy beat after my lecture. Tauhid tells Lisa the students were great, she deflects, he says she's amazing. Last shot wide in the classroom. 15 seconds total, cinematic.
+
+You: /render
+```
+
+After **`/render`**, open `projects/<that_session>/multishot_prompts.json` and copy shot prompts into Kling’s custom multi-shot UI (bind your Elements and uploaded `@image` refs there).
+
 ### Files written per session
 
 Inside `projects/YYYYMMDD_HHMMSS/`:
@@ -62,9 +108,9 @@ Inside `projects/YYYYMMDD_HHMMSS/`:
 |------|------------|
 | `session.json` | Elements + reference-image tags you entered at startup |
 | `chat.jsonl` | Append-only log of user + Jarvis messages |
-| `multishot_prompts.json` | **Main output**: multi-shot–style JSON (shots, durations, Kling-oriented fields) after **`/render`** |
+| `multishot_prompts.json` | **Main output**: multi-shot–style JSON after **`/render`** |
 | `multishot_response_raw.txt` | Raw Gemini text (debug) |
-| `multishot_response_stripped.txt` | Same after stripping ` ``` ` fences (debug) |
+| `multishot_response_stripped.txt` | Same after stripping code fences (debug) |
 
 ### Troubleshooting
 
@@ -75,4 +121,4 @@ Inside `projects/YYYYMMDD_HHMMSS/`:
 
 - **`main.py`** — CLI: session setup, chat loop, `/render` → save JSON  
 - **`jarvis_agent.py`** — Gemini client + multishot JSON generation  
-- **`kling.py`** — Optional Kling HTTP client (unused by `main.py` today)
+- **`kling.py`** — Optional Kling HTTP client (unused by `main.py`)
